@@ -4,7 +4,9 @@ import os
 from src.evaluate import evaluate_model
 from src.predict import predict_image
 
-app = Flask(__name__)
+application = Flask(__name__)
+
+app=application
 
 @app.route('/')
 def index():
@@ -35,4 +37,4 @@ def upload_file():
         return render_template('index.html', prediction_result=result)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0")
