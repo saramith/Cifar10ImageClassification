@@ -6,8 +6,8 @@ from src.data_preprocessing import preprocess_data
 def evaluate_model():
     model = load_model("trained_model.h5")
     
-    (_, _), (X_test, y_test) = load_cifar10_data()
-    _, X_test, _, y_test = preprocess_data(np.empty((0, 32, 32, 3)), X_test, np.empty((0, 1)), y_test)
+    (X_train, y_train), (X_test, y_test) = load_cifar10_data()
+    X_train, X_test, y_train, y_test = preprocess_data(X_train, X_test, y_train, y_test)
     
     test_loss, test_acc = model.evaluate(X_test, y_test, verbose=1)
 

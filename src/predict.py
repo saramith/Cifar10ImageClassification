@@ -12,5 +12,5 @@ def predict_image(img_path):
 
     return {
         'predicted_class': predicted_class,
-        'predictions': np.max(predictions)
+        'predictions': float(np.max(predictions))
     }

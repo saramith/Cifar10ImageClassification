@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from werkzeug.utils import secure_filename
 import os
 from src.evaluate import evaluate_model
@@ -21,20 +21,23 @@ def evaluate_route():
 @app.route('/predict', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
-        return 'No file part'
+        return jsonify({'error': 'No file part'})
     
     file = request.files['file']
     
     if file.filename == '':
-        return 'No selected file'
+        return jsonify({'error': 'No selected file'})
     
     if file:
         filename = secure_filename(file.filename)
         file_path = os.path.join('upload_folder', filename)
         file.save(file_path)
+        
         # Call predict_image function with the uploaded image path
         result = predict_image(file_path)
-        return render_template('index.html', prediction_result=result)
+
+        # Return prediction result as JSON
+        return jsonify(result)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0",debug=True)

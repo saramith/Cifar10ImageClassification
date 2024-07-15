@@ -28,7 +28,7 @@ def train_model():
     model.summary()
 
     batch_size = 64
-    epochs = 2
+    epochs = 100
 
     optimizer = Adam(learning_rate=0.0005)
     model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
